@@ -17,10 +17,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('product', [ProductController::class, 'show'])->name('product.show');
+Route::get('product/{product:slug}', [ProductController::class, 'show'])->name('product.show');
 
 
 // Rota de admin
 
 Route::get('/admin/products', [AdminProductController::class, 'index'])->name('admin.products.index');
-Route::get('/admin/products/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+
+
+Route::get('/admin/products/create', [AdminProductController::class, 'create'])->name('admin.products.create');
+
+Route::post('/admin/products', [AdminProductController::class, 'store'])->name('admin.products.store');
+
+
+
+Route::get('/admin/products/{product}/edit', [AdminProductController::class, 'edit'])->name('admin.products.edit');
+
+Route::put('/admin/products/{product}', [AdminProductController::class, 'update'])->name('admin.products.update');
+
