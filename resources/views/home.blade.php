@@ -1,6 +1,6 @@
 @extends('layouts.default')
 
-@section('title', 'Inicio')
+@section('title', 'Início')
 
 @section('content')
 <section class="text-gray-600">
