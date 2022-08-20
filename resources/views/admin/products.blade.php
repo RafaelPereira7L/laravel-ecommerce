@@ -23,12 +23,11 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y">
-
                     @foreach ($products as $product)
                     <tr @if($loop->even) class="bg-gray-100" @endif>
                         <td class="px-4 py-3">{{ $product->id }}</td>
                         <td class="px-4 py-3">
-                            <img alt="{{ $product->name }}" class="object-cover object-center w-full h-full block" src="{{ $product->cover  }}">
+                            <img alt="{{ $product->name }}" class="object-cover object-center w-full h-full block" src="@if(Str::contains(Storage::url($product->cover), 'via.placeholder')){{ $product->cover }}@else{{ Storage::url($product->cover) }}@endif">
                         </td>
                         <td class="px-4 py-3">{{ $product->name }}</td>
                         <td class="px-4 py-3">R${{ $product->price }}</td>

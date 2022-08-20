@@ -16,12 +16,31 @@ class AdminProductController extends Controller
     }
 
     // Mostrar página para editar formulário
-    public function edit() {
-        return view('admin.product_edit');
+    public function edit(Product $product) {
+        return view('admin.product_edit', [
+            'product' => $product
+        ]);
     }
 
     // Recebe requisição para dar update no produto -> PUT METHOD
-    public function update() {
+    public function update(Product $product, Request $request) {
+        $input = $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'nullable|integer',
+            'cover' => 'file|nullable',
+            'description' => 'nullable|string',
+        ]);
+        if(!empty($input['cover']) && $input['cover']->isValid()) {
+            $file = $input['cover'];
+
+            $path = $file->store('public/products');
+            $input['cover'] = $path;
+        };
+
+        $product->fill($input);
+        $product->save();
+        return redirect()->route('admin.products.index');
     }
 
     // Mostrar página para criar produto

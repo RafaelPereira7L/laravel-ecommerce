@@ -11,7 +11,9 @@
 
                 <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
                     <a class="block relative h-48 rounded overflow-hidden">
-                        <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="{{ $product->cover }}">
+                    <img alt="{{ $product->name }}" class="object-cover object-center w-full h-full block"
+                        src="@if(Str::contains(Storage::url($product->cover), 'via.placeholder')){{ $product->cover }}@else{{ Storage::url($product->cover) }}@endif"
+                    >
                     </a>
                     <div class="mt-4">
                         <h2 class="text-gray-900 title-font text-lg font-medium">{{ $product->name }}</h2>
