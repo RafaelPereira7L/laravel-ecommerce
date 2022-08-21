@@ -68,6 +68,12 @@
                         @enderror
                     </div>
 
+                @if($product->cover)
+                    <div class="p-2 w-2/5 text-center">
+                        <img src="@if(Str::contains(Storage::url($product->cover), 'via.placeholder')){{ $product->cover }}@else{{ Storage::url($product->cover) }}@endif" alt="{{$product->name}}">
+                        <a class="text-red-500 font-medium" href="{{route('admin.products.destroyImage', $product->id)}}">Deletar Imagem</a>
+                    </div>
+                @endif
                     <div class="p-2 w-full">
                         <div class="relative">
                             <label for="name" class="leading-7 text-sm text-gray-600">Descrição</label>

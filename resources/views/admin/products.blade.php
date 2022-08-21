@@ -34,7 +34,7 @@
                         <td class="px-4 py-3">{{ $product->stock }}</td>
                         <td class="px-4 py-3 text-sm text-right space-x-3 text-gray-900">
                             <a href="{{route('admin.products.edit', $product->id)}}" class="mt-3 text-indigo-500 inline-flex items-center cursor-pointer">Editar</a>
-                            <a class="mt-3 text-red-500 inline-flex items-center cursor-pointer">Deletar</a>
+                            <a href="{{route('admin.products.destroy', $product->id)}}" class="mt-3 text-red-500 inline-flex items-center cursor-pointer">Deletar</a>
                         </td>
                     </tr>
                     @endforeach
