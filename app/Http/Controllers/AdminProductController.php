@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductStoreRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -24,14 +25,8 @@ class AdminProductController extends Controller
     }
 
     // Recebe requisição para dar update no produto -> PUT METHOD
-    public function update(Product $product, Request $request) {
-        $input = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'stock' => 'nullable|integer',
-            'cover' => 'file|nullable',
-            'description' => 'nullable|string',
-        ]);
+    public function update(Product $product, ProductStoreRequest $request) {
+        $input = $request->validated();
         if(!empty($input['cover']) && $input['cover']->isValid()) {
             Storage::delete($product->cover ?? '');
             $file = $input['cover'];
@@ -50,14 +45,8 @@ class AdminProductController extends Controller
     }
 
     // Recebe requisição para criar produto -> POST METHOD
-    public function store(Request $request) {
-        $input = $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|integer',
-            'stock' => 'nullable|integer',
-            'cover' => 'file|nullable',
-            'description' => 'nullable|string',
-        ]);
+    public function store(ProductStoreRequest $request) {
+        $input = $request->validated();
         $input['slug'] = Str::slug($input['name']);
 
         if(!empty($input['cover']) && $input['cover']->isValid()) {
